@@ -75,13 +75,6 @@ class PSOSearchCV(BaseSearchCV):
               spawned
             - A str, giving an expression as a function of n_jobs,
               as in '2*n_jobs'
-    iid : bool, default=False
-        If True, return the average score across folds, weighted by the number
-        of samples in each test set. In this case, the data is assumed to be
-        identically distributed across the folds, and the loss minimized is
-        the total loss per sample, and not the mean loss across the folds.
-        .. deprecated:: 0.22
-            Parameter ``iid`` is deprecated in 0.22 and will be removed in 0.24
     cv : int, cross-validation generator or an iterable, default=None
         Determines the cross-validation splitting strategy.
         Possible inputs for cv are:
@@ -137,10 +130,10 @@ class PSOSearchCV(BaseSearchCV):
     """
     def __init__(self, estimator, param_grid, scoring=None, cv=None, refit=True, 
                  verbose=0, n_particles=64, iterations =20, pso_c1 = 0.5, pso_c2 = 0.3, 
-                 pso_w = 0.9, n_jobs=None,  iid = True,pre_dispatch='2*n_jobs',
+                 pso_w = 0.9, n_jobs=None,pre_dispatch='2*n_jobs',
                  error_score=np.nan, return_train_score=False):
         super().__init__(estimator=estimator, scoring=scoring,cv=cv,refit=refit,verbose=verbose,
-             n_jobs=n_jobs, iid=iid, pre_dispatch=pre_dispatch, error_score=error_score, 
+             n_jobs=n_jobs, pre_dispatch=pre_dispatch, error_score=error_score, 
             return_train_score=return_train_score)
         self.n_particles=n_particles
         self.iterations = iterations
