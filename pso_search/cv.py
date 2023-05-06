@@ -168,7 +168,7 @@ class PSOSearchCV(BaseSearchCV):
         n_splits = cv_orig.get_n_splits(X, y, groups)
         self.cv = cv_orig
         if isinstance(self.scoring,str):
-            self.scorers = {"score": check_scoring(estimator, scoring=self.scoring)}
+            self.scorers = {"score": check_scoring(self.estimator, scoring=self.scoring)}
         else:
             self.scorers = {name: make_scorer(metric) for name, metric in self.scoring.items()}
         self.multimetric_ = len(self.scorers) > 1
