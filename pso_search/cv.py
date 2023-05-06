@@ -287,7 +287,7 @@ class PSOSearchCV(BaseSearchCV):
         print('The best position found by pso is: {}'.format(final_best_pos))
         
         results = self._format_results(
-                    all_candidate_params, self.scorers, n_splits, all_out)
+                    all_candidate_params, n_splits, all_out, self.scorers)
         
         return results
     
