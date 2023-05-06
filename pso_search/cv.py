@@ -11,7 +11,7 @@ from collections import defaultdict
 from sklearn.base import clone, is_classifier
 from sklearn.model_selection._validation import _fit_and_score
 from sklearn.model_selection._search import BaseSearchCV, check_cv
-from sklearn.metrics.scorer import check_scoring, _check_multimetric_scoring
+from sklearn.metrics import check_scoring, make_scorer
 from sklearn.utils.validation import _num_samples, indexable
 from itertools import product
 import logging
@@ -174,8 +174,9 @@ class PSOSearchCV(BaseSearchCV):
         cv_orig = check_cv(self.cv, y, classifier=is_classifier(self.estimator))
         n_splits = cv_orig.get_n_splits(X, y, groups)
         self.cv = cv_orig
-        self.scorers, self.multimetric_ = _check_multimetric_scoring(
-                                        self.estimator, scoring=self.scoring)
+        self.scorers = {name: make_scorer(metric) for name, metric in self.scoring.items()}
+        self.multimetric_ = len(self.scorers) > 1
+        #self.scorers, self.multimetric_ = _check_multimetric_scoring(self.estimator, scoring=self.scoring)
         if self.multimetric_:
             if self.refit is not False and (
                     not isinstance(self.refit, str) or
