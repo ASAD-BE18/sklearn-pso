@@ -272,11 +272,7 @@ class PSOSearchCV(BaseSearchCV):
             candidate_params, out = self._evalFunction(X, y, groups, pos_parameters)
             all_candidate_params.extend(candidate_params)
             all_out.extend(out)
-            if self.return_train_score:
-                _, test_score_dicts, _, _,_ = zip(*out)
-            else:
-                test_score_dicts, _, _, _ = zip(*out)
-            test_scores = [n["score"] for n in test_score_dicts]
+            test_scores = [item['test_scores']['score'] for item in out]
             test_scores = -np.array(test_scores).reshape((len(pos_parameters), n_splits)).mean(axis = 1)
 
             optimizer.update(i, test_scores)
