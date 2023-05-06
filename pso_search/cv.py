@@ -10,7 +10,7 @@ import random
 from collections import defaultdict
 from sklearn.base import clone, is_classifier
 from sklearn.model_selection._validation import _fit_and_score
-from sklearn.model_selection._search import BaseSearchCV, check_cv, _check_param_grid
+from sklearn.model_selection._search import BaseSearchCV, check_cv
 from sklearn.metrics.scorer import check_scoring, _check_multimetric_scoring
 from sklearn.utils.validation import _num_samples, indexable
 from itertools import product
